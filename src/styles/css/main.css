@@ -1,0 +1,90 @@
+@import url("https://fonts.googleapis.com/css2?family=Comfortaa:wght@500&family=Kirang+Haerang&display=swap");
+html, body {
+  width: 100vw;
+  overflow-x: hidden;
+  margin: 0;
+}
+
+.section {
+  color: white;
+  background: #060611;
+}
+.section_title {
+  background: #ab003c;
+  color: inherit;
+}
+.section_content {
+  background: #f50057;
+  font-family: "Kirang Haerang", cursive;
+  font-size: 1.3rem;
+  letter-spacing: 2px;
+  color: inherit;
+}
+.section_title, .section_content {
+  margin: 0;
+  padding: 0.5rem 2rem;
+}
+
+.card {
+  padding: 2rem;
+  display: flex;
+  flex-flow: row wrap;
+}
+.card_area {
+  background: #f50057;
+  width: 300px;
+  height: auto;
+  padding: 0.5rem;
+}
+.card_media {
+  width: 100%;
+  height: auto;
+}
+
+.sidebar {
+  background-color: #ab003c;
+  color: white;
+  border-right: 2rem solid #f50057;
+  box-shadow: inset -12px 0px 9px #1c1b1b33;
+}
+.sidebar_block {
+  list-style-type: none;
+}
+
+.list_block {
+  border-bottom: 1px solid gray;
+  padding: 0.5rem 0.3rem;
+  border-left: 1rem solid #ab003c;
+}
+.list_link {
+  text-decoration: none;
+  font-family: "Comfortaa", cursive;
+  letter-spacing: 3px;
+  color: white;
+}
+
+.btn {
+  text-decoration: none;
+  border: 2px solid darkgray;
+  padding: 4.2px 8.4px;
+  text-align: center;
+  border-radius: 25px;
+}
+
+.primary {
+  background-color: #ab003c;
+  color: inherit;
+}
+.primary:active {
+  background-color: #920033;
+}
+
+.second {
+  background-color: #f50057;
+  color: inherit;
+}
+.second:active {
+  background-color: #dc004e;
+}
+
+/*# sourceMappingURL=main.css.map */
