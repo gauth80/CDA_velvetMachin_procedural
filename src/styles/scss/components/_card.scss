@@ -1,0 +1,42 @@
+
+
+.section_card {
+  @extend %text, %title;
+  background: $primary-darken;
+  .card_content {
+    justify-content: center;
+    .card {
+      padding: 5px;
+      border-radius: 12.5px;
+      box-shadow: 0 3px 0 0 $blue-lighten;
+      cursor:grab;
+      transition:all .5s;
+    }
+
+    .text {
+      margin: 1.5rem 0;
+      padding:5px 20px;
+      box-shadow:9px 0 0px 0 $blue-lighten, -1px 1px 2px 0px gray,1px 0 2px 0 gray;
+    }
+
+  }
+
+  .card_content-mobile {
+    float: none;
+
+    // même poids avec >
+    &>.text {
+      float: left;
+      text-indent:0px;
+    }
+
+    & .card.icons {
+      float: left;
+      width:300px;
+      height:auto;
+      margin:0 10px 0 0;
+      padding:0;
+
+    }
+  }
+}

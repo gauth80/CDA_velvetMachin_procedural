@@ -1,0 +1,31 @@
+
+// bases
+$blue : skyblue;
+$red : brown;
+$green : forestgreen;
+$snow : whitesmoke;
+$dark : #333;
+
+// material ui
+$primary : #f50057;
+$primary-darken : #ab003c;
+$second : #2196f3;
+$second_darken : #1769aa;
+
+// box shadow
+$shadow : -3px 3px 3px mix($dark,$snow);
+
+// mode normal
+$blue-lighten : mix($blue, navy);
+$blue-darken : darken($blue, 50%);
+
+// mode darken
+$red-border : mix($red, orangered);
+$gray: gray;
+$red-darken:mix($red, orange);
+$red-lighten:lighten($red, 50%);
+
+// initial
+.color-default {
+  color: $snow;
+}

@@ -4,13 +4,13 @@
 
   if(isset($_POST['disc_id']) && !empty($_POST['disc_id'])) {
 
-    $getErrorAuthor = $getErrorAlbum = $getErrorGenre = $getErrorYear = $getErrorPrice = $getErrorImg String '';
-    $id = trim($_POST['disc_id'], ' \n\r\t') : int;
-    $author = trim($_POST['artist_name'], ' \n\r\t') : string;
-    $album = trim($_POST['disc_title'], ' \n\r\t') : string;
-    $genre = trim($_POST['disc_genre'], ' \n\r\t') : string;
-    $year = trim($_POST['disc_year'], ' \n\r\t') : string;
-    $price = trim($_POST['disc_price'], ' \n\r\t' : int;
+    $getErrorAuthor = $getErrorAlbum = $getErrorGenre = $getErrorYear = $getErrorPrice = (String) $getErrorImg ='';
+    $id = (Int) trim($_POST['disc_id'], ' \n\r\t');
+    $author = (String) trim($_POST['artist_name'], ' \n\r\t');
+    $album = (String) trim($_POST['disc_title'], ' \n\r\t');
+    $genre = (String) trim($_POST['disc_genre'], ' \n\r\t');
+    $year = (String) trim($_POST['disc_year'], ' \n\r\t');
+    $price = (Int) trim($_POST['disc_price'], ' \n\r\t');
 
     $_name ="/[a-zA-Z]+(?:(?:\-| |\')?[a-zA-Z]+){0,9}/";
     $_price = "/[0-9][0-9]{0,4}/";
@@ -99,8 +99,42 @@
     }
     unset($dsn);
   } else {
-    
+
     die();
   }
 
  ?>
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Modification</title>
+</head>
+<body>
+  <form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']);?>" method="POST" enctype="multipart/form-data">
+    <legend>Changer les valeurs : </legend>
+
+    <label for="author">
+      <input id="author" type="text" name="artist_name">
+    </label>
+    <label for="album">
+      <input id="album" type="text" name="disc_title">
+    </label>
+    <label for="genre">
+      <input id="genre" type="text" name="disc_genre">
+    </label>
+    <label for="year">
+      <input id="year" type="text" name="disc_year">
+    </label>
+    <label for="price">
+      <input id="price" type="text" name="disc_price">
+    </label>
+
+  </form>
+
+</body>
+</html>
