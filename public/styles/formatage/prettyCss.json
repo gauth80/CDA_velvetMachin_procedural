@@ -1,0 +1,25 @@
+{
+  "main" : "mb-3 col-12 p-2 row justify-content-center",
+
+  "card" : "d-flex card col-sm-5 mx-sm-1 col-md-4 col-lg-3 border-primary",
+  "card_title" : "card-title p-1",
+  "card_subtitle" : "card-subtitle text-muted pb-1",
+
+  "accordion_header" : "accordion-header pb-3",
+  "accordion_collapse" : "accordion-collapse collapse",
+
+  "section" : "section col-12 mt-5",
+  "section_title" : "section_title offset-1 color-default",
+  "section_card" : "section_card col-xs-12 offset-xs-0 col-sm-10 offset-sm-1 p-1",
+
+  "card_content" : "card_content row col-xs-12 px-0 px-md-1 col-md-6 col-lg-4",
+  "cell" : "row col-xs-12 mx-xs-0 col-sm-10 offset-sm-1 col-lg-6 p-1",
+
+  "form" : "card row col-4 mx-auto my-5 border-primary",
+  "form_field" : "row col-12 mx-auto my-5",
+  "form_group" : "form-group row my-3",
+  "form_control" : "form-control col-5",
+  "input_group" : "form-group input-group col-5 my-3 px-0",
+  "form_btn" : "btn btn-primary px-3"
+
+}

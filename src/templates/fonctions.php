@@ -1,5 +1,5 @@
 <?php
-function entete($title, $meta, Array $link, Array $navigation) {
+function entete($title,$css, $js, Array $link, Array $navigation) {
 
 
   // heredoc
@@ -10,21 +10,22 @@ function entete($title, $meta, Array $link, Array $navigation) {
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
-        <link rel="stylesheet" href="$meta">
+        <script defer src="$js"></script>
+        <link rel="stylesheet" href="$css">
         <title>$title</title>
       </head>
       <body class="container">
-        <header class="fixed">
-          <nav class="nav">
-            <ul class="nav_reset">
-              <li class="nav_list">
-                <a class="list_link" href="$link[0]">$navigation[0]</a>
+        <header class="navbar navbar-expand-lg navbar-dark bg-dark">
+          <nav class="collapse navbar-collapse" id="navbarColor02">
+            <ul class="navbar-nav me-auto">
+              <li class="nav-item">
+                <a class="nav-link active" href="$link[0]">$navigation[0]</a>
               </li>
               <li class="nav_list">
-                <a class="list_link" href="$link[1]">$navigation[1]</a>
+                <a class="nav-link" href="$link[1]">$navigation[1]</a>
               </li>
               <li class="nav_list">
-                <a class="list_link" href="$link[2]">$navigation[2]</a>
+                <a class="nav-link" href="$link[2]">$navigation[2]</a>
               </li>
             </ul>
           </nav>
@@ -34,15 +35,10 @@ function entete($title, $meta, Array $link, Array $navigation) {
 
 function footer() {
   echo <<< FOOTER
-        <footer>
-          <div>
-            <ul>
-              <li>Lorem ipsum.</li>
-              <li>Lorem ipsum.</li>
-              <li>Lorem ipsum.</li>
-              <li>Lorem ipsum.</li>
-              <li>Lorem ipsum.</li>
-            </ul>
+        <footer class="card border-info offset-2 col-8 p-3 row">
+          <div class="col-12 row">
+            <h3>Qui somme nous ?</h3>
+            <p class="text-primary">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quibusdam harum hic earum, sed error, fugiat nihil non pariatur, eveniet recusandae nobis accusamus. Optio voluptate nesciunt sunt cumque quo assumenda deleniti.</p>
           </div>
         </footer>
       </body>

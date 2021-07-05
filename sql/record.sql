@@ -54,4 +54,7 @@ INSERT INTO disc (disc_id, disc_title, disc_year, disc_picture, disc_label, disc
 ;
 
 
-CREATE VIEW produits AS SELECT artist_name, artist_url, disc_title, disc_year, disc_picture, disc_label, disc_genre, disc_price, disc_id FROM artist LEFT JOIN disc ON artist.artist_id = disc.disc_id;
+CREATE VIEW produits3
+AS
+SELECT * FROM artist
+NATURAL JOIN disc

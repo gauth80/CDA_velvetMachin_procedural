@@ -2,7 +2,7 @@
 <?php
   include('templates/fonctions.php');
   require_once('./../config/dsn.php');
-  $file = 'styles/formatage/prettyCss.json';
+  $file = './../public/styles/formatage/prettyCss.json';
   $data = file_get_contents($file, false);
   $obj = json_decode($data);
 
@@ -10,7 +10,8 @@
 
 <?= entete(
   'Velvet Record | accueil',
-  "./styles/css/styles.css",
+  "./../public/styles/css/bootstrap.min.css",
+  "./../public/js/bootstrap.min.js",
     [
       "./pages/edition.php",
       "./../actions/create.php",
@@ -24,38 +25,54 @@
   );
 ?>
 
-      <section class="section mt-5">
-        <h1 class="<?= $obj->section_title; ?>">Les articles</h1>
-          <article class="<?= $obj->section_card; ?>">
-            <?php
-              $dsn = connexionBase();
-              // view
-              $sql = 'SELECT * FROM produits';
-              if($request = $dsn->query($sql)) {
-                if($request->rowCount() > 0) {
-                  while ($row = $request->fetchObject()) { ?>
-                    <figure class="<?= $obj->card_content; ?>">
-                      <a href=""><img src="./../public/media/img/<?=$row->disc_picture?>" alt="<?=$row->disc_title?>" class="fluid" title="<?=$row->disc_picture?>"></a>
-                      <p>Auteur : <?=$row->artist_name;?></p>
-                      <p>Album : <?=$row->disc_title;?></p>
-                      <p>Genre : <?=$row->disc_genre;?></p>
-                      <p>Années de sortie : <?=$row->disc_year;?></p>
-                      <p>Prix de l'album : <?=$row->disc_price;?></p>
-                      <a href="./../actions/update.php?disc_id=<?=$row->disc_id?>" name="update" class="btn primary">Modifier</a>
-                      <a href="delete.php?disc_id=<?=$row->disc_id?>" class="btn primary">Supprimez</a>
-                    </figure>
-                    <?php } ?>
-                  </article>
+      <section class="row">
+        <article class="<?= $obj->main;?>">
+          <h1 class="text-center my-5">Les articles</h1>
+          <?php
+            $dsn = connexionBase();
+
+            // view
+            $sql = 'SELECT * FROM produits';
+            if($request = $dsn->query($sql)) {
+              if($request->rowCount() > 0) {
+                while ($row = $request->fetchObject()) { ?>
+                  <figure class="<?= $obj->card;?>">
+                    <h2 class="<?= $obj->card_title;?>"><?=$row->artist_name;?></h2>
+                    <h3 class="<?= $obj->card_subtitle;?>"><?=$row->disc_title;?></h3>
+                    <a href="">
+                      <img src="./../public/media/img/<?=$row->disc_picture?>" alt="<?=$row->disc_title?>" class="img-fluid" title="<?=$row->disc_picture?>">
+                    </a>
+
+                    <div class="accordion" id="anchorCard">
+                      <h2 class="<?= $obj->accordion_header;?>" id="headingOne">
+                        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-<?=$row->disc_id?>" aria-expanded="true" aria-controls="collapseOne">
+                          Description
+                        </button>
+                      </h2>
+                      <div id="collapse-<?=$row->disc_id?>" class="<?= $obj->accordion_collapse;?>" aria-labelledby="headingOne" data-bs-parent="#anchorCard">
+                        <div class="accordion-body">
+                          <p class="text-muted">Genre : <?=$row->disc_genre;?></p>
+                          <p class="text-muted">Années de sortie : <?=$row->disc_year;?></p>
+                          <p class="text-muted">Prix de l'album : <?=$row->disc_price;?></p>
+                          <a href="./../actions/update.php?disc_id=<?=$row->disc_id?>" name="update" class="btn btn-outline-info">Modifier</a>
+                          <a href="delete.php?disc_id=<?=$row->disc_id?>" class="btn btn-outline-danger">Supprimez</a>
+                        </div>
+                      </div>
+                  </div>
+
+                    </div>
+                  </figure>
+                <?php } ?>
+              </article>
               <?php
-              unset($request);
+                unset($request);
+              } else {
+                echo "aucunes données trouvée.";
+              }
             } else {
-              echo "aucunes données trouvée.";
-          }
-        } else {
-          echo "erreur dans la request";
-        }
-      unset($dsn);
-      ?>
-    </section>
-  </div>
+              echo "erreur dans la request";
+            }
+            unset($dsn);
+          ?>
+        </section>
   <?= footer(); ?>

@@ -4,10 +4,16 @@
   // paramètres du site
   include('../templates/fonctions.php');
   require_once('../../config/dsn.php');
-  $file = '../styles/formatage/prettyCss.json';
+  $file = '../../public/styles/formatage/prettyCss.json';
   $data = file_get_contents($file, false);
   $obj = json_decode($data);
+?>
 
+<?php
+
+ ?>
+
+ <?php
   // Indicateur | cast
   (String)
   $getErrorScript =
@@ -151,7 +157,8 @@
 
 <?= entete(
   "Velvet Record | Edition",
-  "./../styles/css/styles.css",
+  "../../public/styles/css/bootstrap.min.css",
+  "../../public/js/bootstrap.min.js",
     [
       "./../index.php",
       "../index.php",
@@ -167,11 +174,11 @@
 
   <section class="row mt-5">
     <form class="<?= $obj->form ?>" action="<?php $_SERVER['PHP_SELF'];?>" method="post" enctype="multipart/form-data">
-      <fieldset class=" row form_border">
-        <legend class="form_title">Editée un article</legend>
+      <fieldset class="<?= $obj->form_field ?>">
+        <legend>Editée un article</legend>
 
-        <label for="name" class="<?= $obj->cell?>">
-          <input type="text" placeholder="Auteur" name="name">
+        <label for="name" class="<?= $obj->form_group;?>">
+          <input type="text" placeholder="Auteur" name="name" class="<?= $obj->form_control;?>">
           <?php if(isset($getErrorAuthor)) :?>
             <span class="warning">
               <?=$getErrorAuthor;?>
@@ -179,8 +186,8 @@
           <?php endif; ?>
         </label>
 
-        <label for="title" class="<?= $obj->cell?>">
-          <input type="text" placeholder="Album" name="title">
+        <label for="title" class="<?= $obj->form_group;?>">
+          <input type="text" placeholder="Album" name="title" class="<?= $obj->form_control;?>">
           <?php if(isset($getErrorAlbum)) :?>
             <span class="warning">
               <?=$getErrorAlbum;?>
@@ -188,8 +195,8 @@
           <?php endif; ?>
         </label>
 
-        <label for="genre" class="<?= $obj->cell?>">
-          <input type="text" placeholder="genre musical" name="genre">
+        <label for="genre" class="<?= $obj->form_group;?>">
+          <input type="text" placeholder="genre musical" name="genre" class="<?= $obj->form_control;?>">
           <?php if(isset($getErrorGenre)) :?>
             <span class="warning">
               <?=$getErrorGenre;?>
@@ -197,8 +204,8 @@
           <?php endif; ?>
         </label>
 
-        <label for="year" class="<?= $obj->cell?>">
-          <input type="date" name="year">
+        <label for="year" class="<?= $obj->form_group;?>">
+          <input type="date" name="year" class="<?= $obj->form_control;?>text-muted">
           <?php if(isset($getErrorYear)) :?>
             <span class="warning">
               <?=$getErrorYear;?>
@@ -206,8 +213,10 @@
           <?php endif; ?>
         </label>
 
-        <label for="price" class="<?= $obj->cell?>">
-          <input type="text" placeholder="ajouter un prix" name="price">
+        <label for="price" class="<?= $obj->input_group;?>">
+            <input type="text" placeholder="ajouter un prix" name="price" class="<?= $obj->form_control;?>">
+            <span class="input-group-text">€</span>
+
           <?php if(isset($getErrorPrice)) :?>
             <span class="warning">
               <?=$getErrorPrice;?>
@@ -215,8 +224,8 @@
           <?php endif; ?>
          </label>
 
-        <label for="upload" class="<?= $obj->cell?>">
-          <input type="file" name="upload">
+        <label for="upload" class="<?= $obj->form_group;?>">
+          <input type="file" name="upload" class="<?= $obj->form_control;?> text-info">
           <?php if(isset($getErrorImg)) :?>
             <span class="warning">
               <?=$getErrorImg;?>
@@ -224,8 +233,8 @@
           <?php endif; ?>
         </label>
 
-        <div class="row">
-          <input class="btn primary" type="submit" value="edit" name="edit"/>
+        <div>
+          <input class="<?= $obj->form_btn;?>" type="submit" value="edit" name="edit"/>
         </div>
       </fieldset>
     </form>
