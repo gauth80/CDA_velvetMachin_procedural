@@ -29,3 +29,5 @@ $red-lighten:lighten($red, 50%);
 .color-default {
   color: $snow;
 }
+// transparence
+$transparence : transparentize(#000, .7);

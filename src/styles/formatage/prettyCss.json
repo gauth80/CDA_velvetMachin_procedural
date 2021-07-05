@@ -1,0 +1,9 @@
+{
+  "section" : "section col-12 mt-5",
+  "section_title" : "section_title offset-1 color-default",
+  "section_card" : "section_card col-xs-12 offset-xs-0 col-sm-10 offset-sm-1 p-1",
+  "card_content" : "card_content row col-xs-12 px-0 px-md-1 col-md-6 col-lg-4",
+  "form" : "form col-xs-12 offset-xs-0 col-sm-10 offset-sm-1 col-md-8 offset-md-2 p-2",
+  "cell" : "row col-xs-12 mx-xs-0 col-sm-10 offset-sm-1 col-lg-6 p-1"
+
+}

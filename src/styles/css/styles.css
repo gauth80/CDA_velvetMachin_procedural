@@ -4015,7 +4015,7 @@ html, body {
     right: 4rem;
   }
 }
-.section_card {
+.form .form_border .form_title, .section_card {
   display: block;
   position: relative;
   font-size: 2rem;
@@ -4118,6 +4118,25 @@ html, body {
   height: auto;
   margin: 0 10px 0 0;
   padding: 0;
+}
+
+.form .form_border {
+  background-color: rgba(0, 0, 0, 0.3);
+  border-radius: 12.5px 0 12.5px 0;
+}
+.form .form_border .form_title {
+  text-align: center;
+  background-color: inherit;
+  border: whitesmoke 2px solid;
+  padding: 5px;
+  color: whitesmoke;
+}
+.form .form_border [type=text] {
+  width: 100%;
+  padding: 4px;
+}
+.form .form_border [type=file] {
+  color: whitesmoke;
 }
 
 .wrap {
