@@ -54,8 +54,14 @@
                           <p class="text-muted">Genre : <?=$row->disc_genre;?></p>
                           <p class="text-muted">Années de sortie : <?=$row->disc_year;?></p>
                           <p class="text-muted">Prix de l'album : <?=$row->disc_price;?></p>
-                          <a href="./../actions/update.php?disc_id=<?=$row->disc_id?>" name="update" class="btn btn-outline-info">Modifier</a>
-                          <a href="delete.php?disc_id=<?=$row->disc_id?>" class="btn btn-outline-danger">Supprimez</a>
+                          <a
+                            href="./pages/update.php?<?= $row->disc_id ? str_replace(' ', '_', $row->disc_title) : null?>"
+                            class="btn btn-outline-info">Modifier
+                          </a>
+
+                          <a href="./pages/delete.php?<?= $row->disc_id ? str_replace(' ', '_', $row->disc_title) : null ?>"
+                            class="btn btn-outline-danger">Supprimez
+                          </a>
                         </div>
                       </div>
                   </div>

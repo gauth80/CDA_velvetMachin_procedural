@@ -1,7 +1,5 @@
 <?php
-  /* breakpoints =1 =2*/
 
-  // paramètres du site
   include('../templates/fonctions.php');
   require_once('../../config/dsn.php');
   $file = '../../public/styles/formatage/prettyCss.json';
@@ -9,9 +7,6 @@
   $obj = json_decode($data);
 ?>
 
-<?php
-
- ?>
 
  <?php
   // Indicateur | cast
@@ -25,7 +20,7 @@
   $getErrorImg =
   $getMessage = "";
 
-  if(isset($_POST['edit'])) {
+  if(isset($_POST['edit']) AND !empty($_POST['edit'])) {
 
     function checkedData($getData) {
       $getData = trim($getData, ' \n\r\t');
@@ -57,7 +52,7 @@
 
 
   //A3 checked input
-  /*if(!isset($getAuthor)) {
+  if(empty($getAuthor)) {
       $getErrorAuthor = "Veuillez indiquez le nom de l'auteur";
   } elseif(!filter_var($getAuthor, FILTER_VALIDATE_REGEXP, array("options"=>array("regexp"=>"/^[a-zA-Z]*$/")))) {
       $getErrorAuthor = "Caractères non valide";
@@ -65,10 +60,9 @@
       $getErrorAuthor = "Ce champs doit comportée au minimum trois caractères et un maximum de 16 caractères";
   } else {
       $author = $getAuthor;
-      var_dump($author);
   }
 
-  if(!isset($getAlbum)) {
+  if(empty($getAlbum)) {
       $getErrorAlbum = "Veuillez indiquez le titre de l'album";
   } elseif(!filter_var($getAlbum, FILTER_VALIDATE_REGEXP, array("options"=>array("regexp"=>"/^[a-zA-Z]*$/")))) {
       $getErrorAlbum = "Caractères non valide";
@@ -78,7 +72,7 @@
       $album = $getAlbum;
   }
 
-  if(!isset($getGenre)) {
+  if(empty($getGenre)) {
       $getErrorGenre = "Veuillez indiquez le titre de l'album";
   } elseif(!filter_var($getGenre, FILTER_VALIDATE_REGEXP, array("options"=>array("regexp"=>"/^[a-zA-Z]*$/")))) {
       $getErrorGenre = "Caractères non valide";
@@ -88,7 +82,7 @@
       $genre = $getGenre;
   }
 
-  if(!isset($getYear)) {
+  if(empty($getYear)) {
       $getErrorYear = "Veuillez indiquez l'année d'édition";
   } elseif(!filter_var($getYear, FILTER_VALIDATE_REGEXP, array("options"=>array("regexp"=>"/[0-9]{2}(?:(\/|-))[0-9]{2}(?:(\/|-))[0-9]{4}|[0-9]{4}(?:(\/|-))[0-9]{2}(?:(\/|-))[0-9]{2}/")))) {
       $getErrorYear = "Caractères non valide";
@@ -97,13 +91,13 @@
   }
 
 
-  if(!isset($getPrice)) {
+  if(empty($getPrice)) {
     $getErrorPrice = "Veuillez indiquez le prix de l'article";
   } elseif(!filter_var($getPrice, FILTER_VALIDATE_REGEXP, array("options"=>array("regexp"=>"/[0-9]{1,}[.]{0,1}[0-9]{0,2}/")))) {
     $getErrorPrice = "Caractères non valide";
   } else {
     $price = $getPrice;
-  }*/
+  }
 
 
   if(in_array($imgExt, $valid_extensions)) {
@@ -118,20 +112,23 @@
 
 
   //A5 envoie
-    if(isset($album) && isset($year) && isset($genre) && isset($price)) {
-      //empty($getErrorImg) && empty($getErrorYear) && empty($getErrorAlbum) && empty($getErrorPrice) && empty($getErrorAuthor) && empty($getErrorGenre)
-      header('location: ../../src/index.php');
+    if(empty($getErrorImg) &&
+      empty($getErrorYear) &&
+      empty($getErrorAlbum) &&
+      empty($getErrorPrice) &&
+      empty($getErrorAuthor) &&
+      empty($getErrorGenre)) {
 
-      $sql = "INSERT INTO disc (disc_title, disc_genre, disc_year, disc_price) VALUES (
-        ?,?,?,?)";
+        $dsn = connexionBase();
+        $sql = "INSERT INTO disc (disc_title, disc_genre, disc_year, disc_price) VALUES (
+        :title, :genre, :year, :price)";
 
-      if($statement = $dsn->prepare($sql)) {
-        header('location: ../../src/index.php');
+        if($statement = $dsn->prepare($sql)) {
 
           if($imgSize < 10000000) {
             move_uploaded_file($tmp_dir,$dirFolder.$id.$extension);
                 if(empty($tmp_dir)) {
-                  exit();
+                  die();
                   $getErrorScript = "tmp_dir == undefined";
                 }
 
@@ -140,15 +137,22 @@
           }
 
 
-          if($statement->execute(array($album, $genre, $year,$price))) {
+          if($statement->execute(
+            [
+              ':disc_title' => $getAlbum,
+              ':disc_genre' => $getGenre,
+              ':disc_year' =>  $getYear,
+              ':disc_price' => $getPrice
+            ]
+          )) {
             header('location: ../../src/index.php');
 
           } else {
             $getErrorScript = "erreur Script : la requète n'as pas aboutis";
           }
         }
+
         unset($statement);
-        header('location: ../../src/index.php');
       }
       unset($dsn);
     }
@@ -173,61 +177,82 @@
 
 
   <section class="row mt-5">
-    <form class="<?= $obj->form ?>" action="<?php $_SERVER['PHP_SELF'];?>" method="post" enctype="multipart/form-data">
+    <form class="<?= $obj->form ?>" action="<?php htmlspecialchars($_SERVER['PHP_SELF'])?>" method="post" enctype="multipart/form-data">
       <fieldset class="<?= $obj->form_field ?>">
         <legend>Editée un article</legend>
 
         <label for="name" class="<?= $obj->form_group;?>">
-          <input type="text" placeholder="Auteur" name="name" class="<?= $obj->form_control;?>">
+          <input
+            type="text"
+            placeholder="Auteur"
+            name="name"
+            class=" <?= $obj->form_control;?><?= empty($getErrorPrice) ? 'is-invalid' : 'is-valid' ?>">
+
           <?php if(isset($getErrorAuthor)) :?>
-            <span class="warning">
+            <span class="invalid-feedback">
               <?=$getErrorAuthor;?>
             </span>
           <?php endif; ?>
         </label>
 
         <label for="title" class="<?= $obj->form_group;?>">
-          <input type="text" placeholder="Album" name="title" class="<?= $obj->form_control;?>">
+          <input type="text"
+          placeholder="Album"
+          name="title" class="<?= $obj->form_control;?><?= empty($getErrorPrice) ? 'is-invalid' : 'is-valid' ?>">
+
           <?php if(isset($getErrorAlbum)) :?>
-            <span class="warning">
+            <span class="invalid-feedback">
               <?=$getErrorAlbum;?>
             </span>
           <?php endif; ?>
         </label>
 
         <label for="genre" class="<?= $obj->form_group;?>">
-          <input type="text" placeholder="genre musical" name="genre" class="<?= $obj->form_control;?>">
+          <input type="text"
+          placeholder="genre musical"
+          name="genre"
+          class="<?= $obj->form_control;?><?= empty($getErrorPrice) ? 'is-invalid' : 'is-valid' ?>">
+
           <?php if(isset($getErrorGenre)) :?>
-            <span class="warning">
+            <span class="invalid-feedback">
               <?=$getErrorGenre;?>
             </span>
           <?php endif; ?>
         </label>
 
         <label for="year" class="<?= $obj->form_group;?>">
-          <input type="date" name="year" class="<?= $obj->form_control;?>text-muted">
+          <input type="date"
+          name="year"
+          class="<?= $obj->form_control;?> <?= empty($getErrorYear) ? 'is-invalid' : 'is-valid' ?> text-muted">
+
           <?php if(isset($getErrorYear)) :?>
-            <span class="warning">
+            <span class="invalid-feedback">
               <?=$getErrorYear;?>
             </span>
           <?php endif; ?>
         </label>
 
         <label for="price" class="<?= $obj->input_group;?>">
-            <input type="text" placeholder="ajouter un prix" name="price" class="<?= $obj->form_control;?>">
+            <input type="text"
+              placeholder="ajouter un prix"
+              name="price"
+              class=" <?= $obj->form_control;?><?= empty($getErrorPrice) ? 'is-invalid' : 'is-valid' ?>">
             <span class="input-group-text">€</span>
 
           <?php if(isset($getErrorPrice)) :?>
-            <span class="warning">
+            <span class="invalid-feedback">
               <?=$getErrorPrice;?>
             </span>
           <?php endif; ?>
          </label>
 
         <label for="upload" class="<?= $obj->form_group;?>">
-          <input type="file" name="upload" class="<?= $obj->form_control;?> text-info">
+          <input type="file"
+          name="upload"
+          class="<?= $obj->form_control;?><?= empty($getErrorPrice) ? 'is-invalid' : 'is-valid' ?> text-info">
+
           <?php if(isset($getErrorImg)) :?>
-            <span class="warning">
+            <span class="invalid-feedback">
               <?=$getErrorImg;?>
             </span>
           <?php endif; ?>
